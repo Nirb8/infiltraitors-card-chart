@@ -74,7 +74,6 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
     var setToBlack = true
 		if (el.classList.contains('clicked')) {
     	el.classList.remove('clicked');
-      var setToBlack = false
     }
     else
     {
@@ -94,7 +93,7 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
       }
       /* console.log(className) */;
       document.querySelectorAll(className).forEach(function(el) {
-            if (el.classList.contains('clicked')) {
+            if (!setToBlack) {
               el.classList.remove('clicked');
             }
         else
@@ -133,7 +132,7 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
               break;
       }
       document.querySelectorAll(className).forEach(function(el) {
-            if (el.classList.contains('clicked')) {
+            if (!setToBlack) {
               el.classList.remove('clicked');
             }
         else
