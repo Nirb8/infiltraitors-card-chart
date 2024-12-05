@@ -1,17 +1,3 @@
-var lastClicked;
-var grid = clickableGrid(4,15,function(el,row,col,i){
-    console.log("You clicked on element:",el);
-    console.log("You clicked on row:",row);
-    console.log("You clicked on col:",col);
-    console.log("You clicked on item #:",i);
-
-    el.className='clicked';
-    if (lastClicked) lastClicked.className='';
-    lastClicked = el;
-});
-
-document.body.appendChild(grid);
-     
 function clickableGrid( rows, cols, callback ){
     var i=0;
     var grid = document.createElement('table');
@@ -31,3 +17,21 @@ function clickableGrid( rows, cols, callback ){
     }
     return grid;
 }
+
+
+var lastClicked;
+
+
+var grid = clickableGrid(4,15,function(el,row,col,i){
+    console.log("You clicked on element:",el);
+    console.log("You clicked on row:",row);
+    console.log("You clicked on col:",col);
+    console.log("You clicked on item #:",i);
+
+    el.className='clicked';
+    if (lastClicked) lastClicked.className='';
+    lastClicked = el;
+});
+
+document.body.appendChild(grid);
+     
