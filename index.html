@@ -71,8 +71,10 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
     console.log("You clicked on item #:",i); */
     console.log(el.classList);
     console.log(Array.from(el.classList.values()));
+    var setToBlack = true
 		if (el.classList.contains('clicked')) {
     	el.classList.remove('clicked');
+      var setToBlack = false
     }
     else
     {
@@ -82,6 +84,14 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
     if (row == 0 && col != 0){
       console.log("number disable click");
       var className = '.td-num-' + col;
+      if (el.classList.contains('clicked-master')) {
+    	el.classList.remove('clicked-master');
+      var setToBlack = false
+      }
+      else
+      {
+    	 el.classList.add('clicked-master');
+      }
       /* console.log(className) */;
       document.querySelectorAll(className).forEach(function(el) {
             if (el.classList.contains('clicked')) {
@@ -96,7 +106,14 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
     }
     
     if (row != 0 && col == 0){
-    
+      if (el.classList.contains('clicked-master')) {
+    	el.classList.remove('clicked-master');
+      var setToBlack = false
+      }
+      else
+      {
+    	 el.classList.add('clicked-master');
+      }
       var className = '';
       switch(row) {
           case 1:
