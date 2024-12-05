@@ -1,10 +1,197 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is the title of the webpage!</title>
-	<script src="main.js"></script>
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <script type="text/javascript" src="/js/lib/dummy.js"></script>
+      <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+
+
+
+    <style id="compiled-css" type="text/css">
+      .grid { margin:1em auto; border-collapse:collapse }
+.grid td {
+    cursor:pointer;
+    width:30px; height:30px;
+    border:1px solid #ccc;
+    text-align:center;
+    font-family:sans-serif; font-size:13px
+}
+.grid td.clicked {
+    background-color:yellow;
+    font-weight:bold; color:red;
+}
+
+      /* EOS */
+    </style>
+
+    <style type="text/css">
+      :root {
+        color-scheme: light;
+      }
+    </style>
+
+    <script id="insert"></script>
+
+      <script src="/js/stringify.js?323c66375e7453cc2d46c324066a400512955e2e" charset="utf-8"></script>
+      <script>
+        const customConsole = (w) => {
+          const pushToConsole = (payload, type) => {
+            w.parent.postMessage({
+              console: {
+                payload: stringify(payload),
+                type:    type
+              }
+            }, "*")
+          }
+
+          w.onerror = (message, url, line, column) => {
+            // the line needs to correspond with the editor panel
+            // unfortunately this number needs to be altered every time this view is changed
+            line = line - 70
+            if (line < 0){
+              pushToConsole(message, "error")
+            } else {
+              pushToConsole(`[${line}:${column}] ${message}`, "error")
+            }
+          }
+
+          let console = (function(systemConsole){
+            return {
+              log: function(){
+                let args = Array.from(arguments)
+                pushToConsole(args, "log")
+                systemConsole.log.apply(this, args)
+              },
+              info: function(){
+                let args = Array.from(arguments)
+                pushToConsole(args, "info")
+                systemConsole.info.apply(this, args)
+              },
+              warn: function(){
+                let args = Array.from(arguments)
+                pushToConsole(args, "warn")
+                systemConsole.warn.apply(this, args)
+              },
+              error: function(){
+                let args = Array.from(arguments)
+                pushToConsole(args, "error")
+                systemConsole.error.apply(this, args)
+              },
+              system: function(arg){
+                pushToConsole(arg, "system")
+              },
+              clear: function(){
+                systemConsole.clear.apply(this, {})
+              },
+              time: function(){
+                let args = Array.from(arguments)
+                systemConsole.time.apply(this, args)
+              },
+              assert: function(assertion, label){
+                if (!assertion){
+                  pushToConsole(label, "log")
+                }
+
+                let args = Array.from(arguments)
+                systemConsole.assert.apply(this, args)
+              }
+            }
+          }(window.console))
+
+          window.console = { ...window.console, ...console }
+
+          console.system("Running fiddle")
+        }
+
+        if (window.parent){
+          customConsole(window)
+        }
+      </script>
   </head>
   <body>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
-</html>
+    
+  
+
+    <script type="text/javascript">
+
+var lastClicked;
+var grid = clickableGrid(4,15,function(el,row,col,i){
+    console.log("You clicked on element:",el);
+    console.log("You clicked on row:",row);
+    console.log("You clicked on col:",col);
+    console.log("You clicked on item #:",i);
+
+    el.className='clicked';
+    if (lastClicked) lastClicked.className='';
+    lastClicked = el;
+});
+
+document.body.appendChild(grid);
+     
+function clickableGrid( rows, cols, callback ){
+    var i=0;
+    var grid = document.createElement('table');
+    grid.className = 'grid';
+    for (var r=0;r<rows;++r){
+        var tr = grid.appendChild(document.createElement('tr'));
+        for (var c=0;c<cols;++c){
+            var cell = tr.appendChild(document.createElement('td'));
+            cell.innerHTML = (++i - 1) % 15 + 1;
+            
+            cell.addEventListener('click',(function(el,r,c,i){
+                return function(){
+                    callback(el,r,c,i);
+                }
+            })(cell,r,c,i),false);
+        }
+    }
+    return grid;
+}
+
+  </script><table class="grid"><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr></table>
+
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: ""
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
+
+  <script>
+    const allLines = []
+    const cssElement = document.querySelector("#compiled-css")
+
+    window.addEventListener("message", (message) => {
+        if (message.data.console){
+          let insert = document.querySelector("#insert")
+          allLines.push(message.data.console.payload)
+          insert.innerHTML = allLines.join(";\r")
+
+          let result = eval.call(null, message.data.console.payload)
+          if (result !== undefined){
+            console.log(result)
+          }
+        }
+
+      if (message.data.css){
+        cssElement.textContent = message.data.css.payload
+      }
+
+      if (message.data.html){
+        document.body.innerHTML = message.data.html.payload
+      }
+    })
+  </script>
+</body></html>
