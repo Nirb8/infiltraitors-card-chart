@@ -97,7 +97,7 @@
         }
         return;
       } else {
-        prevGrid = grid;
+        prevGrid = grid.cloneNode(true);
       }
       /*     console.log('You clicked on element:',el);
           console.log('You clicked on row:',row);
@@ -212,6 +212,9 @@
           cell.innerHTML = (++i - 1) % 16;
           if (cell.innerHTML == 0) {
             cell.innerHTML = '';
+            if(r == 0 && c == 0){
+              cell.innerHTML = '↺';
+            }
           } else {
             cell.classList.add('td-num-' + cell.innerHTML);
           }
