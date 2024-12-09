@@ -25,7 +25,7 @@
 }
 .grid td.locked {
   background-color: darkgray;
-  color: white
+  color: darkgray
 }
 .grid td.clicked {
     background-color:black;
