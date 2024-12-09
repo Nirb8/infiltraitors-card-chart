@@ -78,13 +78,20 @@
   <script type='text/javascript'>
 
 
-
+    var prevGrid;
     var lastClicked;
     var grid = clickableGrid(6, 16, function (el, row, col, i) {
 
+
       if (row == 0 && col == 0) {
         console.log('special button activated');
+        if(prevGrid != null){
+          grid.replaceWith(prevGrid);
+          prevGrid = null;
+        }
         return;
+      } else {
+        prevGrid = grid;
       }
       /*     console.log('You clicked on element:',el);
           console.log('You clicked on row:',row);
