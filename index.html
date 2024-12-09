@@ -83,21 +83,18 @@
   <script type='text/javascript'>
 
 
-    var prevGrid;
-    var lastClicked;
-    var grid = clickableGrid(6, 16, function (el, row, col, i) {
+    var gridMaker = function (el, row, col, i) {
 
 
       if (row == 0 && col == 0) {
         console.log('special button activated');
-        if(prevGrid != null){
+        if (prevGrid != null) {
           console.log("replacing with prev grid");
           grid.replaceWith(prevGrid);
-          prevGrid = null;
         }
         return;
       } else {
-        prevGrid = grid.cloneNode(true);
+        prevGrid = clickableGrid(6, 16, gridMaker, grid.cloneNode(true));
       }
       /*     console.log('You clicked on element:',el);
           console.log('You clicked on row:',row);
@@ -135,7 +132,7 @@
         else {
           el.classList.add('clicked-master');
         }
-      /* console.log(className) */;
+/* console.log(className) */;
         document.querySelectorAll(className).forEach(function (el) {
           if (el.classList.contains('locked')) {
             return;
@@ -197,14 +194,21 @@
         });
 
       }
-    });
+    }
+
+    var prevGrid;
+    var lastClicked;
+    var grid = clickableGrid(6, 16, gridMaker, null);
 
     document.body.appendChild(grid);
 
-    function clickableGrid(rows, cols, callback) {
+    function clickableGrid(rows, cols, callback, prevGrid) {
       var i = 0;
       var grid = document.createElement('table');
       grid.className = 'grid';
+      if (prevGrid) {
+        grid = prevGrid;
+      }
       for (var r = 0; r < rows; ++r) {
         var tr = grid.appendChild(document.createElement('tr'));
         for (var c = 0; c < cols; ++c) {
@@ -212,7 +216,7 @@
           cell.innerHTML = (++i - 1) % 16;
           if (cell.innerHTML == 0) {
             cell.innerHTML = '';
-            if(r == 0 && c == 0){
+            if (r == 0 && c == 0) {
               cell.innerHTML = '↺';
             }
           } else {
