@@ -67,6 +67,11 @@
 
 var lastClicked;
 var grid = clickableGrid(6,16,function(el,row,col,i){
+
+    if(row == 0 && col == 0){
+      console.log("special button activated");
+      return;
+    }
 /*     console.log("You clicked on element:",el);
     console.log("You clicked on row:",row);
     console.log("You clicked on col:",col);
