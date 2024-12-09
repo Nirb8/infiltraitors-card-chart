@@ -93,7 +93,7 @@
       console.log(el.classList);
       console.log(Array.from(el.classList.values()));
       var setToBlack = true
-      if (!el.classList.contains('clicked')) {
+      if (!el.classList.contains('clicked') && !el.classList.contains('locked')) {
         el.classList.add('clicked');
       }
       else {
