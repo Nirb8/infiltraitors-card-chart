@@ -72,12 +72,19 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
     console.log(el.classList);
     console.log(Array.from(el.classList.values()));
     var setToBlack = true
-		if (el.classList.contains('clicked')) {
-    	el.classList.remove('clicked');
+		if (!el.classList.contains('clicked')) {
+    	el.classList.add('clicked');
     }
     else
     {
-    	 el.classList.add('clicked');
+      if(e1.classList.contains('clicked') && e1.classList.contains('locked')) {
+        el.classList.remove("clicked");
+        el.classList.remove("locked");
+      }
+      else
+      {
+        e1.classList.add("locked");
+      }
     }
     
     if (row == 0 && col != 0){
@@ -96,11 +103,14 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
       }
       /* console.log(className) */;
       document.querySelectorAll(className).forEach(function(el) {
-            if (!setToBlack) {
-              el.classList.remove('clicked');
-            }
-        else
-        {
+        if(el.classList.contains("locked")){
+          return;
+        }
+
+        if (!setToBlack) {
+          el.classList.remove('clicked');
+        }
+        else {
           el.classList.add('clicked');
         }
       });
@@ -137,12 +147,14 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
               className = '.black';
               break;
       }
-      document.querySelectorAll(className).forEach(function(el) {
-            if (!setToBlack) {
-              el.classList.remove('clicked');
-            }
-        else
-        {
+      document.querySelectorAll(className).forEach(function (el) {
+        if (el.classList.contains("locked")) {
+          return;
+        }
+        if (!setToBlack) {
+          el.classList.remove('clicked');
+        }
+        else {
           el.classList.add('clicked');
         }
       });

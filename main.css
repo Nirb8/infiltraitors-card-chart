@@ -28,3 +28,8 @@
     background-color:black;
     font-weight:bold; color:black;
 }
+
+.grid td.locked {
+  background-color: darkgray;
+  color: white
+}
