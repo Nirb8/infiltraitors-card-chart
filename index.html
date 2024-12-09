@@ -1,254 +1,266 @@
-<html><head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title></title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="googlebot" content="noindex, nofollow">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="apple-mobile-web-app-capable" content="yes">
+<html>
+
+<head>
+  <meta http-equiv='content-type' content='text/html; charset=UTF-8'>
+  <title></title>
+  <meta http-equiv='content-type' content='text/html; charset=UTF-8'>
+  <meta name='robots' content='noindex, nofollow'>
+  <meta name='googlebot' content='noindex, nofollow'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta name='apple-mobile-web-app-capable' content='yes'>
 
 
-    <script type="text/javascript" src="/js/lib/dummy.js"></script>
-      <link rel="stylesheet" type="text/css" href="/css/normalize.css">
-
-
-
-    <style id="compiled-css" type="text/css">
-      .grid { margin:1em auto; border-collapse:collapse }
-.grid td {
-    cursor:pointer;
-    width:50px; height:40px;
-    border:1px solid #ccc;
-    text-align:center;
-    font-family:sans-serif; font-size:22px
-}
-
-
-.grid td.red {
-  background-color:orangered
-}
-.grid td.yellow {
-  background-color:yellow
-}
-.grid td.green {
-  background-color:yellowgreen
-}
-.grid td.blue {
-  background-color:turquoise
-}
-.grid td.black {
-  background-color:gray
-}
-
-.grid td.clicked {
-    background-color:black;
-    font-weight:bold; color:black;
-}
-
-      /* EOS */
-    </style>
-
-    <style type="text/css">
-      :root {
-        color-scheme: light;
-      }
-    </style>
-
-    <script id="insert"></script>
-
-  </head>
-  <body>
-    
-  
-
-    <script type="text/javascript">
+  <script type='text/javascript' src='/js/lib/dummy.js'></script>
+  <link rel='stylesheet' type='text/css' href='/css/normalize.css'>
 
 
 
-var lastClicked;
-var grid = clickableGrid(6,16,function(el,row,col,i){
-
-    if(row == 0 && col == 0){
-      console.log("special button activated");
-      return;
+  <style id='compiled-css' type='text/css'>
+    .grid {
+      margin: 1em auto;
+      border-collapse: collapse
     }
-/*     console.log("You clicked on element:",el);
-    console.log("You clicked on row:",row);
-    console.log("You clicked on col:",col);
-    console.log("You clicked on item #:",i); */
-    console.log(el.classList);
-    console.log(Array.from(el.classList.values()));
-    var setToBlack = true
-		if (!el.classList.contains('clicked')) {
-    	el.classList.add('clicked');
-    }
-    else
-    {
-      if(el.classList.contains('clicked') && el.classList.contains("locked")) {
-        el.classList.remove("clicked");
-        el.classList.remove("locked");
-      }
-      else
-      {
-        el.classList.add("locked");
-      }
-    }
-    
-    if (row == 0 && col != 0){
-      console.log("number disable click");
-      if (el.classList.contains('clicked')) {
-        el.classList.remove('clicked');
-      }
-      if(el.classList.contains("locked")) {
-        el.classList.remove("locked");
-      }
-      var className = '.td-num-' + col;
-      if (el.classList.contains('clicked-master')) {
-    	el.classList.remove('clicked-master');
-      var setToBlack = false
-      }
-      else
-      {
-    	 el.classList.add('clicked-master');
-      }
-      /* console.log(className) */;
-      document.querySelectorAll(className).forEach(function(el) {
-        if(el.classList.contains("locked")){
-          return;
-        }
 
-        if (!setToBlack) {
+    .grid td {
+      cursor: pointer;
+      width: 50px;
+      height: 40px;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 22px
+    }
+
+
+    .grid td.red {
+      background-color: orangered
+    }
+
+    .grid td.yellow {
+      background-color: yellow
+    }
+
+    .grid td.green {
+      background-color: yellowgreen
+    }
+
+    .grid td.blue {
+      background-color: turquoise
+    }
+
+    .grid td.black {
+      background-color: gray
+    }
+
+    .grid td.clicked {
+      background-color: black;
+      font-weight: bold;
+      color: black;
+    }
+
+    /* EOS */
+  </style>
+
+  <style type='text/css'>
+    :root {
+      color-scheme: light;
+    }
+  </style>
+
+  <script id='insert'></script>
+
+</head>
+
+<body>
+
+
+
+  <script type='text/javascript'>
+
+
+
+    var lastClicked;
+    var grid = clickableGrid(6, 16, function (el, row, col, i) {
+
+      if (row == 0 && col == 0) {
+        console.log('special button activated');
+        return;
+      }
+      /*     console.log('You clicked on element:',el);
+          console.log('You clicked on row:',row);
+          console.log('You clicked on col:',col);
+          console.log('You clicked on item #:',i); */
+      console.log(el.classList);
+      console.log(Array.from(el.classList.values()));
+      var setToBlack = true
+      if (!el.classList.contains('clicked')) {
+        el.classList.add('clicked');
+      }
+      else {
+        if (el.classList.contains('clicked')) {
           el.classList.remove('clicked');
+          el.classList.add('locked');
+        }
+        else if (el.classList.contains('locked')) {
+          el.remove('locked');
+        }
+      }
+
+      if (row == 0 && col != 0) {
+        console.log('number disable click');
+        if (el.classList.contains('clicked')) {
+          el.classList.remove('clicked');
+        }
+        if (el.classList.contains('locked')) {
+          el.classList.remove('locked');
+        }
+        var className = '.td-num-' + col;
+        if (el.classList.contains('clicked-master')) {
+          el.classList.remove('clicked-master');
+          var setToBlack = false
         }
         else {
-          el.classList.add('clicked');
+          el.classList.add('clicked-master');
         }
-      });
-      
-    }
-    
-    if (row != 0 && col == 0){
-      if (el.classList.contains('clicked')) {
-        el.classList.remove('clicked');
-      }
-      if(el.classList.contains("locked")) {
-        el.classList.remove("locked");
-      }
-      if (el.classList.contains('clicked-master')) {
-    	el.classList.remove('clicked-master');
-      var setToBlack = false
-      }
-      else
-      {
-    	 el.classList.add('clicked-master');
-      }
-      var className = '';
-      switch(row) {
-          case 1:
-              className = '.red';
-              break;
-          case 2:
-              className = '.yellow';
-              break;
-          case 3:
-              className = '.green';
-              break;
-          case 4:
-              className = '.blue';
-              break;
-          case 5:
-              className = '.black';
-              break;
-      }
-      document.querySelectorAll(className).forEach(function (el) {
-        if (!el.classList.contains("locked")) {
-          
+      /* console.log(className) */;
+        document.querySelectorAll(className).forEach(function (el) {
+          if (el.classList.contains('locked')) {
+            return;
+          }
+
           if (!setToBlack) {
+            el.classList.remove('clicked');
+          }
+          else {
+            el.classList.add('clicked');
+          }
+        });
+
+      }
+
+      if (row != 0 && col == 0) {
+        if (el.classList.contains('clicked')) {
           el.classList.remove('clicked');
-          }
+        }
+        if (el.classList.contains('locked')) {
+          el.classList.remove('locked');
+        }
+        if (el.classList.contains('clicked-master')) {
+          el.classList.remove('clicked-master');
+          var setToBlack = false
+        }
+        else {
+          el.classList.add('clicked-master');
+        }
+        var className = '';
+        switch (row) {
+          case 1:
+            className = '.red';
+            break;
+          case 2:
+            className = '.yellow';
+            break;
+          case 3:
+            className = '.green';
+            break;
+          case 4:
+            className = '.blue';
+            break;
+          case 5:
+            className = '.black';
+            break;
+        }
+        document.querySelectorAll(className).forEach(function (el) {
+          if (!el.classList.contains('locked')) {
+
+            if (!setToBlack) {
+              el.classList.remove('clicked');
+            }
             else {
-          el.classList.add('clicked');
+              el.classList.add('clicked');
+            }
           }
-        }
-        
-      });
-      
-    }
-});
 
-document.body.appendChild(grid);
-     
-function clickableGrid( rows, cols, callback ){
-    var i=0;
-    var grid = document.createElement('table');
-    grid.className = 'grid';
-    for (var r=0;r<rows;++r){
+        });
+
+      }
+    });
+
+    document.body.appendChild(grid);
+
+    function clickableGrid(rows, cols, callback) {
+      var i = 0;
+      var grid = document.createElement('table');
+      grid.className = 'grid';
+      for (var r = 0; r < rows; ++r) {
         var tr = grid.appendChild(document.createElement('tr'));
-        for (var c=0;c<cols;++c){
-            var cell = tr.appendChild(document.createElement('td'));
-            cell.innerHTML = (++i - 1) % 16;
-            if(cell.innerHTML == 0){
-            	cell.innerHTML = '';
-            } else {
-            	cell.classList.add('td-num-' + cell.innerHTML);
-            }
-            switch(r) {
-                case 1:
-                    cell.classList.add('red');
-                    break;
-                case 2:
-                    cell.classList.add('yellow');
-                    break;
-                case 3:
-                    cell.classList.add('green');
-                    break;
-                case 4:
-                    cell.classList.add('blue');
-                    break;
-                case 5:
-                    cell.classList.add('black');
-                    break;
-            }
+        for (var c = 0; c < cols; ++c) {
+          var cell = tr.appendChild(document.createElement('td'));
+          cell.innerHTML = (++i - 1) % 16;
+          if (cell.innerHTML == 0) {
+            cell.innerHTML = '';
+          } else {
+            cell.classList.add('td-num-' + cell.innerHTML);
+          }
+          switch (r) {
+            case 1:
+              cell.classList.add('red');
+              break;
+            case 2:
+              cell.classList.add('yellow');
+              break;
+            case 3:
+              cell.classList.add('green');
+              break;
+            case 4:
+              cell.classList.add('blue');
+              break;
+            case 5:
+              cell.classList.add('black');
+              break;
+          }
 
-              
-            
-            cell.addEventListener('click',(function(el,r,c,i){
-                return function(){
-                    callback(el,r,c,i);
-                }
-            })(cell,r,c,i),false);
+
+
+          cell.addEventListener('click', (function (el, r, c, i) {
+            return function () {
+              callback(el, r, c, i);
+            }
+          })(cell, r, c, i), false);
         }
+      }
+      return grid;
     }
-    return grid;
-}
 
   </script>
   <script>
     // tell the embed parent frame the height of the content
-    if (window.parent && window.parent.parent){
-      window.parent.parent.postMessage(["resultsFrame", {
+    if (window.parent && window.parent.parent) {
+      window.parent.parent.postMessage(['resultsFrame', {
         height: document.body.getBoundingClientRect().height,
-        slug: "u279ajcz"
-      }], "*")
+        slug: 'u279ajcz'
+      }], '*')
     }
 
     // always overwrite window.name, in case users try to set it manually
-    window.name = "result"
+    window.name = 'result'
   </script>
 
   <script>
     const allLines = []
-    const cssElement = document.querySelector("#compiled-css")
+    const cssElement = document.querySelector('#compiled-css')
 
-    window.addEventListener("message", (message) => {
+    window.addEventListener('message', (message) => {
 
-      if (message.data.css){
+      if (message.data.css) {
         cssElement.textContent = message.data.css.payload
       }
 
-      if (message.data.html){
+      if (message.data.html) {
         document.body.innerHTML = message.data.html.payload
       }
     })
   </script>
-</body></html>
+</body>
+
+</html>
