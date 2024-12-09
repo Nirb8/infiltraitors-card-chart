@@ -63,6 +63,8 @@
 
     <script type="text/javascript">
 
+var prevGrid;
+
 var lastClicked;
 var grid = clickableGrid(6,16,function(el,row,col,i){
 /*     console.log("You clicked on element:",el);
@@ -77,13 +79,13 @@ var grid = clickableGrid(6,16,function(el,row,col,i){
     }
     else
     {
-      if(e1.classList.contains('clicked') && e1.classList.contains('locked')) {
+      if(el.classList.contains('clicked') && el.classList.contains('locked')) {
         el.classList.remove("clicked");
         el.classList.remove("locked");
       }
       else
       {
-        e1.classList.add("locked");
+        el.classList.add("locked");
       }
     }
     
