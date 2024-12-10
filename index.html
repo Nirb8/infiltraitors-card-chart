@@ -108,7 +108,12 @@
         return;
       } else {
         console.log('current grid');
-        var flatNodeList = JSON.parse(JSON.stringify(Array.from(grid.children).map(e => Array.from(e.children)).flat())); // we love one liners
+        var flatNodeList = Array.from(grid.children).map(e => Array.from(e.children)).flat().map((e) => {
+          return { 
+            className: e.className,
+            id: e.id,
+          }
+        });
         console.log(flatNodeList)
         undoStack.push(flatNodeList);
       }
