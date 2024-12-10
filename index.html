@@ -100,7 +100,9 @@
         console.log(undoStack.pop());
         return;
       } else {
-        undoStack.push(Array.from(grid.cloneNode(true).tBodies));
+        console.log('current grid');
+        console.log(grid);
+        undoStack.push(Array.from(grid.tBodies));
       }
       /*     console.log('You clicked on element:',el);
           console.log('You clicked on row:',row);
