@@ -121,6 +121,10 @@
         });
         // console.log(flatNodeList)
         undoStack.push(flatNodeList);
+
+        if (undoStack.length > 50) {
+          undoStack.shift();
+        }
       }
       /*     console.log('You clicked on element:',el);
           console.log('You clicked on row:',row);
