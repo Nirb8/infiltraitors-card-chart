@@ -108,7 +108,7 @@
         return;
       } else {
         console.log('current grid');
-        var flatNodeList = Array.from(grid.children).map(e => Array.from(e.children)).flat(); // we love one liners
+        var flatNodeList = JSON.parse(JSON.stringify(Array.from(grid.children).map(e => Array.from(e.children)).flat())); // we love one liners
         console.log(flatNodeList)
         undoStack.push(flatNodeList);
       }
