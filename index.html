@@ -96,25 +96,30 @@
         //   grid.replaceWith(prevGrid);
         //   prevGrid = null;
         // }
-        console.log('should restore state to');
+        // console.log('should restore state to');
         var revertState = undoStack.pop();
-        console.log(revertState);
-        revertState.forEach((e) => {
-          var revertClassname = e.className;
-          var liveElement = document.getElementById(e.id);
-          liveElement.className = revertClassname;
-        });
+        if (revertState) {
+          // console.log(revertState);
+          revertState.forEach((e) => {
+            var revertClassname = e.className;
+            var liveElement = document.getElementById(e.id);
+            liveElement.className = revertClassname;
+          });
+
+        } else {
+          console.log('nothing left to undo');
+        }
 
         return;
       } else {
-        console.log('current grid');
+        // console.log('current grid');
         var flatNodeList = Array.from(grid.children).map(e => Array.from(e.children)).flat().map((e) => {
           return { 
             className: e.className,
             id: e.id,
           }
         });
-        console.log(flatNodeList)
+        // console.log(flatNodeList)
         undoStack.push(flatNodeList);
       }
       /*     console.log('You clicked on element:',el);
