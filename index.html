@@ -97,7 +97,14 @@
         //   prevGrid = null;
         // }
         console.log('should restore state to');
-        console.log(undoStack.pop());
+        var revertState = undoStack.pop();
+        console.log(revertState);
+        revertState.forEach((e) => {
+          var revertClassname = e.className;
+          var liveElement = document.getElementById(e.id);
+          liveElement.classname = revertClassname;
+        });
+
         return;
       } else {
         console.log('current grid');
@@ -220,7 +227,7 @@
           if (cell.innerHTML == 0) {
             cell.innerHTML = '';
             if(r == 0 && c == 0){
-              // cell.innerHTML = '↺';
+              cell.innerHTML = '↺';
             }
           } else {
             cell.classList.add('td-num-' + cell.innerHTML);
