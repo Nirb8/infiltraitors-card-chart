@@ -101,8 +101,9 @@
         return;
       } else {
         console.log('current grid');
-        console.log(grid);
-        undoStack.push(Array.from(grid.tBodies));
+        var flatNodeList = Array.from(grid.children).map(e => Array.from(e.children)).flat(); // we love one liners
+        console.log(flatNodeList)
+        undoStack.push(flatNodeList);
       }
       /*     console.log('You clicked on element:',el);
           console.log('You clicked on row:',row);
