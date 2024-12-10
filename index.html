@@ -210,6 +210,7 @@
         for (var c = 0; c < cols; ++c) {
           var cell = tr.appendChild(document.createElement('td'));
           cell.innerHTML = (++i - 1) % 16;
+          cell.id = `r${r}-c${c}`
           if (cell.innerHTML == 0) {
             cell.innerHTML = '';
             if(r == 0 && c == 0){
