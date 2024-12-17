@@ -55,12 +55,32 @@
     .grid td.clicked {
       background-color: darkgray;
       font-weight: bold;
-      color: darkgray;
+      color: black;
     }
 
     .grid td.locked {
       background-color: black;
-      color: black;
+      color: white;
+    }
+
+    .grid td.red-priority {
+      background-color: orangered
+    }
+
+    .grid td.yellow-priority {
+      background-color: yellow
+    }
+
+    .grid td.green-priority {
+      background-color: yellowgreen
+    }
+
+    .grid td.blue-priority {
+      background-color: turquoise
+    }
+
+    .grid td.black-priority {
+      background-color: gray
     }
 
     /* EOS */
@@ -243,6 +263,23 @@
             if(r == 0 && c == 0){
               cell.innerHTML = '↺';
             }
+            switch (r) {
+            case 1:
+              cell.classList.add('red-priority');
+              break;
+            case 2:
+              cell.classList.add('yellow-priority');
+              break;
+            case 3:
+              cell.classList.add('green-priority');
+              break;
+            case 4:
+              cell.classList.add('blue-priority');
+              break;
+            case 5:
+              cell.classList.add('black-priority');
+              break;
+          }
           } else {
             cell.classList.add('td-num-' + cell.innerHTML);
           }
