@@ -106,18 +106,24 @@
     var prevGrid;
     var undoStack = []
     var lastClicked;
-    var grid = clickableGrid(6, 16, function (el, row, col, i) {
 
+    function pushToUndoStack() {
+      console.log('current grid');
+      var flatNodeList = Array.from(grid.children).map(e => Array.from(e.children)).flat().map((e) => {
+          return { 
+            className: e.className,
+            id: e.id,
+          }
+        });
+        // console.log(flatNodeList)
+        undoStack.push(flatNodeList);
 
-      if (row == 0 && col == 0) {
-        console.log('special button activated');
-        // if(prevGrid != null){
-        //   console.log("replacing with prev grid");
-        //   grid.replaceWith(prevGrid);
-        //   prevGrid = null;
-        // }
-        // console.log('should restore state to');
-        var revertState = undoStack.pop();
+        if (undoStack.length > 50) {
+          undoStack.shift();
+        }
+    }
+    function doUndo() {
+      var revertState = undoStack.pop();
         if (revertState) {
           // console.log(revertState);
           revertState.forEach((e) => {
@@ -130,21 +136,23 @@
           console.log('nothing left to undo');
         }
 
+    }
+
+    var grid = clickableGrid(6, 16, function (el, row, col, i) {
+
+
+      if (row == 0 && col == 0) {
+        console.log('special button activated');
+        // if(prevGrid != null){
+        //   console.log("replacing with prev grid");
+        //   grid.replaceWith(prevGrid);
+        //   prevGrid = null;
+        // }
+        // console.log('should restore state to');
+        doUndo();
         return;
       } else {
-        // console.log('current grid');
-        var flatNodeList = Array.from(grid.children).map(e => Array.from(e.children)).flat().map((e) => {
-          return { 
-            className: e.className,
-            id: e.id,
-          }
-        });
-        // console.log(flatNodeList)
-        undoStack.push(flatNodeList);
-
-        if (undoStack.length > 50) {
-          undoStack.shift();
-        }
+        pushToUndoStack()
       }
       /*     console.log('You clicked on element:',el);
           console.log('You clicked on row:',row);
@@ -246,7 +254,21 @@
       }
     });
 
+    var button = resetButton(grid, undoStack);
+
     document.body.appendChild(grid);
+
+    document.body.appendChild(button);
+
+
+    function resetButton(grid, undoStack) {
+      var button = document.createElement('button');
+      button.innerHTML = 'Reset';
+      button.addEventListener('click', function () {
+          console.log("resetting");
+        });
+        return button;
+    }
 
     function clickableGrid(rows, cols, callback) {
       var i = 0;
