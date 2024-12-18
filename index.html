@@ -266,7 +266,14 @@
       button.innerHTML = 'Reset';
       button.addEventListener('click', function () {
           console.log("resetting");
+
+          pushToUndoStack();
+          document.querySelectorAll("td").forEach(function (el) {
+            if (el.classList.contains('clicked')) {
+              el.classList.remove('clicked');
+            }
         });
+      });
         return button;
     }
 
